@@ -1,0 +1,254 @@
+---
+title: "Social Network Analysis"
+author: "Anna Lizarov"
+date: "February 23, 2019"
+output: html_document
+---
+
+```{r}
+#Libraries
+library(dplyr)
+library(tidyr)
+library(igraph)
+```
+
+Three social networks (also known as graphs or sociograms) will be generated and analyzed based on three different measures. The data was retrieved from:
+
+Representing Classroom Social Structure. Melbourne: Victoria Institute of
+Secondary Education, M. Vickers and S. Chan, (1981)
+
+Available from the Index of Complex Networks ([ICON](https://icon.colorado.edu/#!/))
+
+The data were collected by Vickers & Chan from 29 seventh grade students in a school in Victoria, Australia. Students were asked to nominate their classmates on a number of relations including the following three "layers":  
+
+1. Who do you get on with in the class?  
+2. Who are your best friends in the class?  
+3. Who would you prefer to work with?  
+
+There is a dataset for each of these questions.
+
+## Data Wrangling
+
+Manipulate each of the data sets so that it is suitable for building a social network using iGraph.
+
+```{r}
+#Load the datasets
+g <- read.csv("get.on.with.csv", header=TRUE)   # Layer 1
+b <- read.csv("best.friends.csv", header=TRUE)  # Layer 2
+w <- read.csv("work.with.csv", header=TRUE)     # Layer 3
+```
+
+```{r}
+# Layer 1
+EDGEg <- g %>% count(from,to)
+names(EDGEg)<-  c("From", "To", "Count")
+VERTEXg <- g %>% select(from, gender.from) 
+VERTEXg <- unique(VERTEXg)
+names(VERTEXg) <- c("ID", "Gender")
+
+# Layer 2
+EDGEb <- b %>% count(from,to)
+names(EDGEb)<-  c("From", "To", "Count")  
+VERTEXb <- b %>% select(from, gender.from) 
+VERTEXb <- unique(VERTEXb)
+names(VERTEXb) <- c("ID", "Gender")
+
+# Layer 3
+EDGEw <- w %>% count(from,to)
+names(EDGEw)<-  c("From", "To", "Count")
+VERTEXw <- w %>% select(from, gender.from) 
+VERTEXw <- unique(VERTEXw)
+names(VERTEXw) <- c("ID", "Gender")
+```
+
+## Visualize the Networks
+
+Create a graph for each of the data sets, are the graphs directed or undirected? Visualize each of the graphs you have created and color the nodes according to gender. Save pdfs of your graphs in this directory for upload to Github.
+
+```{r}
+
+# The graphs will be directed because students are asked (). 
+
+# Layer 1
+set.seed(123)
+g2 <- graph.data.frame(EDGEg, directed=TRUE, vertices = VERTEXg) 
+pdf("Get_On_With_Social_Network.pdf")
+plot(g2, layout=layout.fruchterman.reingold, vertex.color=VERTEXg$Gender, edge.width=EDGEg$Count, edge.arrow.size=0.5, main = "Get On With In Class")
+dev.off()
+
+# Layer 2
+set.seed(123)
+b2 <- graph.data.frame(EDGEb, directed= TRUE, vertices = VERTEXb) 
+pdf("Best_Friends_In_Class_Social_Network.pdf")
+plot(b2, layout=layout.fruchterman.reingold, vertex.color=VERTEXb$Gender, edge.width=EDGEb$Count, edge.arrow.size=0.5, main = "Best Friends In Class")
+dev.off()
+
+# Layer 3
+set.seed(123)
+w2 <- graph.data.frame(EDGEw, directed=TRUE, vertices = VERTEXw) 
+pdf("Prefer_To_Work_With_Social_Network.pdf")
+plot(g2, layout=layout.fruchterman.reingold, vertex.color=VERTEXw$Gender, edge.width=EDGEw$Count, edge.arrow.size=0.5, main = "Prefer To Work With")
+dev.off()
+```
+
+## Centrality Measures
+
+Who in the class has the highest degree centrality for each measure?
+```{r}
+# Indegree centrality will be measured.
+
+# Layer 1
+degree(g2, mode = "in")            # ID = 14, Indegree = 19
+which.max(degree(g2, mode = "in")) # Finds ID with the highest degree
+
+# Layer 2
+degree(b2, mode = "in")           # ID  = 21, Indegree = 12
+which.max(degree(b2, mode="in"))  # Finds ID with the highest degree
+
+# Layer 3
+degree(w2, mode = "in")           # ID = 16, Indegree = 17
+which.max(degree(w2, mode="in"))  # Finds ID with the highest degree
+
+```
+
+```{r}
+#Answer: In the network examining who gets on with who in class, the student with an ID number 14 has the highest indegree centrality of 19. For "Best Friends" network, the student with an ID number 21 has the highest indegree centrality of 12. For the "Prefer to Work With" network, the student an ID number 16 has the highest degree centrality of 17.
+```
+
+
+Does **degree centrality** mean the same thing for each of your networks? Does it make sense for each of your networks?
+```{r}
+# Answer: The degree centrality measure has a different meaning for each graph. For instance, the student with the highest indegree centrality value for the "Best Friends" network is probably the most popular student in class who other students want to be friends with. In other words, in the "Best Friends" network, the indegree centrality measures student's popularity. For the "Prefer to Work With" network, the student with the highest indegree centrality is probably the smartest, most responsible, organized, and reliable one in class if many students want to work with her. Hence, in this network, the indegree centrality measures how reliable, trustworthy, and responisble the student is when it comes to group work. In other words, it measures their work ethic. For the "Get On With" network, the student with teh highest indegree centrality value is probably the most easy-going type of person, with whom others easily get along with. Thus, in this network, the degree centrality measures how easily one student gets along with others in class.
+```
+
+Who in the class has the highest closeness centrality?
+
+```{r}
+# Layer 1
+closeness(g2, mode = "in")             # ID = 14, closeness = 0.0263
+which.max(closeness(g2, mode = "in"))
+
+# Layer 2
+closeness(b2, mode = "in")             # ID = 21, closeness = 0.0208
+which.max(closeness(b2, mode = "in"))
+
+# Layer 3
+closeness(w2, mode = "in")             # ID = 16, closeness = 0.0104           
+which.max(closeness(w2, mode = "in"))
+```
+
+How does **betweeness centrality** differ from degree centrality? Is one more useful than the other? Does their utility differ between your three networks?
+
+```{r}
+# Layer 1
+betweenness(g2)
+
+# Layer 2
+betweenness(b2)
+
+# Layer 3
+betweenness(w2)
+```
+
+```{r}
+# Answer: The betweeness centraility measures the degree to which the vertex lies between other verticies. In particular, for each vertex, the betweeness centrality value represents the number of shortest paths that pass through that vertex. Degree centrality of a vertex, on the other hand,measures the number of edges to other verticies in the network. Both of these centrality measures are useful. For instance, between centrality is useful in figuring out who is the troublemaker in class or who in a group is responsible for not completing the group assignment. 
+```
+
+
+## Simple structures
+
+Count the number of dyads and the number and type of triads using the following commands.
+```{r}
+# Layer 1
+dyad_census(g2)
+
+# Layer 2
+dyad_census(b2)
+
+# Layer 3
+dyad_census(w2)
+```
+[Documentation](http://igraph.org/r/doc/dyad_census.html)
+
+```{r}
+# Layer 1
+triad_census(g2)
+
+# Layer 2
+triad_census(b2)
+
+# Layer 3
+triad_census(w2)
+```
+[Documentation](http://igraph.org/r/doc/triad_census.html)
+
+Do these metrics tell you anything about the networks? If so what?
+```{r}
+# Answer: When it comes to mutual connections, there are 121 pairs of students which get along with each other in class. Furthermore, 55 pairs of students are indeed best friends, as in, that friendship is mutual. Likewise, 46 pairs of student would prefer to work with each other. This shows that those relationships in these pairs of students are reciprocated. Nonetheless, not all relationships are reciprocated in these networks. For instance, in 119 pairs of students, one believes that he or she get on with in class with one student, while the other student believes that he or she gets on with another student in class. Moreover,there are 71 pairs of students where the student that one considers to be their best friend does not feel the same way about them, as in, they do not consider them to be their best friend. Instead, they consider other students to be their best friend. In similar manner, there are 106 pairs of students where one prefers to work with one student while that student prefers to work with someone else. There are also pairs of students which that do not have any relationship with each other. For example, there are 280 pairs of students in the network that do not consider each other to be best friends.
+
+```
+
+
+## Cliques
+
+[clique functions](http://igraph.org/r/doc/cliques.html)
+
+What is the size of the largest clique(s) in each of the three networks?
+
+```{r}
+# Layer 1
+largest.cliques(g2)   # The size of the largest clique is 12.
+
+# Layer 2
+largest.cliques(b2)   # The size of the largest clique is 7.
+
+# Layer 3
+largest.cliques(w2)   # The size of the largest clique is 9.
+```
+
+Which nodes/vertices are in the largest cliques for the three networks? Is there much overlap?
+
+```{r}
+# In the "Get On With" network, the following nodes are in the largest cliques: 8, 11, 27, 15, 13, 24, 23, 20, 14, 19, 22, 21, 26, and 16. In the "Best Friends" network, the following nodes are in the largest cliques: 23, 14, 8, 15, 19, 20, 21, 22, 13, 16, and 11. In the "Prefer to Work With" network, the following nodes are in the largest cliques: 6, 8, 11, 15, 16, 14, 19, 23, 20, 21, and 22. There is a great deal of overlap. 
+```
+
+How many **maximal cliques** are there in each of the networks?
+
+```{r}
+# Layer 1
+count_max_cliques(g2)   # = 64
+
+# Layer 2
+count_max_cliques(b2)   # = 35
+
+# Layer 3
+count_max_cliques(w2)   # = 36
+```
+
+## Components & Cutpoints
+
+Find the cutpoints (articulation points) for each of the three networks you generated. What does this tell you about the graphs? Does what you find match a visual exploration of the networks?
+```{r}
+# Layer 1
+articulation_points(g2)  # There are no cutpoints.
+
+# Layer 2
+articulation_points(b2)   # There is one cuptpoint where ID = 13
+
+# Layer 3
+articulation_points(w2)   # There is one cutpoint where ID = 13
+```
+
+```{r}
+# Answer: For "Get On With" network, there are no cutpoints, which implies that all students get along with each other and there are no two isolated groups of students connected by only one student. This is also supported by the visual representation of the network. For both the "Best Friends" and "Prefer to Work With" networks, the cutpoint is the student with an ID number 13, which is also supported by the visual representation of the network. In the "Best Friends" network, student with an ID number 13 serves as a connection point between two students and the rest of the class. As in, she connects these two students to the rest of the class. In the "Prefer to Work With" network, student with an ID number 13 also connects two groups of students.  
+```
+
+
+## Putting it all together
+
+A narrative description of the social ties among members of this 7th grade class using the network, centrality and structural metrics that were developed. Can you provide any recommendations to the teacher of this class based on your analysis? What other information would you want to know? Can you remember being in seventh grade, does this refelct your experience?
+
+```{r}
+#Answer: In this 7th grade class, it seems that the student who everyone perceives to be their best friend is not the one who many students get on with in class and prefer to work with. Furthermore, by visually inspecting the networks in regards to students' gender, female students tend to be one side of the network while male students tend to be on the other side of the network. In other words, students prefer to have social ties with those of same gender. Nonetheless, boys and girls do communicate with each other in the class. This is illustrated by examining the student with the ID number 12, with whom many boys in class get on with. In terms of reciprocity, many relationships are not mutual, especially when it comes to who gets on with who in class. Nevertheless, the teacher can assign students into groups where the is an equal proportion of boys and girls in regards to group work. Also, the teacher should help students with ID numbers 18 and 25 to interact with others in class. Overall, the social dymanics of this class are similar to the ones in my seventh grade class.   
+
+```
