@@ -87,7 +87,7 @@ dev.off()
 set.seed(123)
 w2 <- graph.data.frame(EDGEw, directed=TRUE, vertices = VERTEXw) 
 pdf("Prefer_To_Work_With_Social_Network.pdf")
-plot(g2, layout=layout.fruchterman.reingold, vertex.color=VERTEXw$Gender, edge.width=EDGEw$Count, edge.arrow.size=0.5, main = "Prefer To Work With")
+plot(w2, layout=layout.fruchterman.reingold, vertex.color=VERTEXw$Gender, edge.width=EDGEw$Count, edge.arrow.size=0.5, main = "Prefer To Work With")
 dev.off()
 ```
 
