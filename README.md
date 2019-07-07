@@ -23,19 +23,9 @@ Secondary Education, M. Vickers and S. Chan, (1981)
 * work.with.csv
 * get.on.with.csv
 
-## Social Networks:
+## Class Social Networks:
 
-### "Best Friends" Network:
-
-![BestFriends](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/Best_Friends_In_Class.png)
-
-### "Person Students Would Prefer to Work With" Network:
-
-![BestFriends](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/Prefer_to_Work_With.png)
-
-### "Person Students Get On With in Class" Network:
-
-![BestFriends](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/Get_On_With_In_Class.png)
+![BestFriends](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/Class_Social_Network.png)
 
 ## Result Interpretation:
 
