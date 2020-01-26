@@ -10,6 +10,7 @@ output: html_document
 library(dplyr)
 library(tidyr)
 library(igraph)
+library(jsonlite)
 ```
 
 Three social networks (also known as graphs or sociograms) will be generated and analyzed based on three different measures. The data was retrieved from:
@@ -42,7 +43,6 @@ w <- read.csv("work.with.csv", header=TRUE)     # Layer 3
 # Layer 1
 EDGEg <- g %>% count(from,to)
 names(EDGEg)<-  c("From", "To", "Count")
-write.csv(EDGEg, "Edgeg.csv")
 VERTEXg <- g %>% select(from, gender.from) 
 VERTEXg <- unique(VERTEXg)
 names(VERTEXg) <- c("ID", "Gender")
@@ -50,7 +50,6 @@ names(VERTEXg) <- c("ID", "Gender")
 # Layer 2
 EDGEb <- b %>% count(from,to)
 names(EDGEb)<-  c("From", "To", "Count")  
-write.csv(EDGEb,"Edgeb.csv" )
 VERTEXb <- b %>% select(from, gender.from) 
 VERTEXb <- unique(VERTEXb)
 names(VERTEXb) <- c("ID", "Gender")
@@ -58,7 +57,6 @@ names(VERTEXb) <- c("ID", "Gender")
 # Layer 3
 EDGEw <- w %>% count(from,to)
 names(EDGEw)<-  c("From", "To", "Count")
-write.csv(EDGEw, "Edgew.csv")
 VERTEXw <- w %>% select(from, gender.from) 
 VERTEXw <- unique(VERTEXw)
 names(VERTEXw) <- c("ID", "Gender")
