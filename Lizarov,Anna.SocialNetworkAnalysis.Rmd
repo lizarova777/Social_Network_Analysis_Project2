@@ -67,14 +67,20 @@ names(VERTEXw) <- c("ID", "Gender")
 ```{r}
 EDGEgj <- EDGEg 
 names(EDGEgj)<-  c("from", "to", "count")
+EDGEgj$from = as.factor(EDGEgj$from)
+EDGEgj$to = as.factor(EDGEgj$to)
 write_json(EDGEgj, "Edgeg.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
 
 EDGEbj <- EDGEb 
 names(EDGEbj)<-  c("from", "to", "count")
+EDGEbj$from = as.factor(EDGEbj$from)
+EDGEbj$to = as.factor(EDGEbj$to)
 write_json(EDGEbj, "Edgeb.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
 
 EDGEwj <- EDGEw 
 names(EDGEwj)<-  c("from", "to", "count")
+EDGEwj$from = as.factor(EDGEwj$from)
+EDGEwj$to = as.factor(EDGEwj$to)
 write_json(EDGEwj, "Edgew.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
 
 ```
