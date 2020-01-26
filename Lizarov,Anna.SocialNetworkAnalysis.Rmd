@@ -62,6 +62,24 @@ VERTEXw <- unique(VERTEXw)
 names(VERTEXw) <- c("ID", "Gender")
 ```
 
+
+# Write as JSON files
+```{r}
+EDGEgj <- EDGEg 
+names(EDGEgj)<-  c("from", "to", "count")
+write_json(EDGEgj, "Edgeg.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
+
+EDGEbj <- EDGEb 
+names(EDGEbj)<-  c("from", "to", "count")
+write_json(EDGEbj, "Edgeb.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
+
+EDGEwj <- EDGEw 
+names(EDGEwj)<-  c("from", "to", "count")
+write_json(EDGEwj, "Edgew.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
+
+```
+
+
 ## Visualize the Networks
 
 Create a graph for each of the data sets, are the graphs directed or undirected? Visualize each of the graphs you have created and color the nodes according to gender. Save pdfs of your graphs in this directory for upload to Github.
