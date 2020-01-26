@@ -69,18 +69,21 @@ EDGEgj <- EDGEg
 names(EDGEgj)<-  c("from", "to", "count")
 EDGEgj$from = as.factor(EDGEgj$from)
 EDGEgj$to = as.factor(EDGEgj$to)
+EDGEgj$count = as.factor(EDGEgj$count)
 write_json(EDGEgj, "Edgeg.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
 
 EDGEbj <- EDGEb 
 names(EDGEbj)<-  c("from", "to", "count")
 EDGEbj$from = as.factor(EDGEbj$from)
 EDGEbj$to = as.factor(EDGEbj$to)
+EDGEbj$count = as.factor(EDGEbj$count)
 write_json(EDGEbj, "Edgeb.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
 
 EDGEwj <- EDGEw 
 names(EDGEwj)<-  c("from", "to", "count")
 EDGEwj$from = as.factor(EDGEwj$from)
 EDGEwj$to = as.factor(EDGEwj$to)
+EDGEwj$count = as.factor(EDGEwj$count)
 write_json(EDGEwj, "Edgew.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
 
 ```
