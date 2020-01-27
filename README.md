@@ -29,11 +29,13 @@ The nodes are colored based on the student's gender.
 
 ![BestFriends](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/Class_Social_Network.png)
 
-The D3.js visualization link is found here: [link](https://cdpn.io/al3868/debug/gObExjg)
+The D3.js visualization link is found here: [Class Social Network Dashboard](https://cdpn.io/al3868/debug/gObExjg)
 
 Preview:
 
 ![visualization](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/D3ClassSocialNetworks.gif)
+
+As one can see, the social network of the class and the relationship between students changes in different contexts. 
 
 ## Result Interpretation:
 
