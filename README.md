@@ -32,6 +32,7 @@ The nodes are colored based on the student's gender.
 __The D3.js visualization link is found here: [Class Social Network Dashboard](https://cdpn.io/al3868/debug/gObExjg)__
 
 The HTML, CSS, and JavaScript (JS) files are found in the repository. 
+
 **Preview**:
 
 ![visualization](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/D3ClassSocialNetworks.gif)
