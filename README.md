@@ -25,7 +25,15 @@ Secondary Education, M. Vickers and S. Chan, (1981)
 
 ## Class Social Networks:
 
+The nodes are colored based on the student's gender. 
+
 ![BestFriends](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/Class_Social_Network.png)
+
+The D3.js visualization link is found here: [link](https://cdpn.io/al3868/debug/gObExjg)
+
+Preview:
+
+![visualization]((https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/D3ClassSocialNetworks.gif)
 
 ## Result Interpretation:
 

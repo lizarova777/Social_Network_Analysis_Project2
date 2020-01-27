@@ -85,7 +85,6 @@ EDGEwj$from = as.factor(EDGEwj$from)
 EDGEwj$to = as.factor(EDGEwj$to)
 EDGEwj$count = as.factor(EDGEwj$count)
 write_json(EDGEwj, "Edgew.json",  pretty = TRUE, na = NULL, auto_unbox = FALSE)
-
 ```
 
 
