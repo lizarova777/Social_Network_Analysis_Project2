@@ -33,7 +33,7 @@ The D3.js visualization link is found here: [link](https://cdpn.io/al3868/debug/
 
 Preview:
 
-![visualization]((https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/D3ClassSocialNetworks.gif)
+![visualization](https://github.com/lizarova777/Social_Network_Analysis_Project2/blob/master/D3ClassSocialNetworks.gif)
 
 ## Result Interpretation:
 
