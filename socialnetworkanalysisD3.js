@@ -168,7 +168,7 @@ function loadGraph(data, strength, distance, radius) {
             // Generate tooltip text
             info = `<strong>${d.id}</strong><br/><span class=${d.gender}>${
               d.gender
-            }</span><br>Versatility (# of pairs): ${d.weight}`;
+            }</span><br>Degree: ${d.weight}`;
 
             table_from = `<p><table id='tooltipTableFrom' border=1>`;
             table_to = `<p><table id='tooltipTableTo' border=1>`;
